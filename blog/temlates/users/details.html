@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block title %}
+    User #{{ user_id }}
+{% endblock}
+
+{% block body %}
+    <h1>{{ user_name }}</h1>
+    <a href="{{ url_for('users_app.list') }}">Back to user list</a>
+{% endblock}
