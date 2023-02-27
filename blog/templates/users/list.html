@@ -4,7 +4,7 @@
 
 {% block title %}
     User list
-{% endblock}
+{% endblock %}
 
 {% block body %}
     <h1>Users</h1>
@@ -13,11 +13,11 @@
             {% for user_id in users %}
                 <li>
                     <a href="{{ url_for('users_app.details', user_id=user_id) }}">
-                        {{ users[user] }}
+                        {{ users[user_id] }}
                     </a>
                 </li>
             {% endfor %}
         </ul>
     </div>    
 
-{% endblock}
+{% endblock %}

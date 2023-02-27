@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint
+from flask import Flask, render_template, Blueprint, url_for
 from flask import request
 from flask import g
 from time import time
@@ -12,12 +12,8 @@ app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
 
 @app.route('/')
-def index:
+def index():
     render_template('index.html')
-
-@app.route('/<data>')
-def index(data: str):
-    return f'Hello!, {data}'
 
 @app.route('/user/')
 def read_user():
