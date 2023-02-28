@@ -1,14 +1,19 @@
-from flask import Flask
+from flask import Flask, render_template, Blueprint, url_for
 from flask import request
 from flask import g
 from time import time
 from werkzeug.exceptions import BadRequest
+from blog.views.users import users_app
+from blog.views.articles import articles_app
 
 app = Flask(__name__)
 
-@app.route('/<data>')
-def index(data: str):
-    return f'Hello!, {data}'
+app.register_blueprint(users_app, url_prefix="/users")
+app.register_blueprint(articles_app, url_prefix="/articles")
+
+@app.route('/')
+def index():
+    render_template('index.html')
 
 @app.route('/user/')
 def read_user():
