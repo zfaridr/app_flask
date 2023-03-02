@@ -10,14 +10,18 @@
     <h1>Users</h1>
     <div>
         <ul>
-            {% for user_id in users %}
+            {% for user in users %}
                 <li>
-                    <a href="{{ url_for('users_app.details', user_id=user_id) }}">
-                        {{ users[user_id] }}
+                    <a href="{{ url_for('users_app.details', user_id=user.id) }}">
+                    {{ user.username -}}
                     </a>
                 </li>
+                {% if user.is_staff %}
+                    <span class="badge bg-secondary">staff</span>
+                {% endif %}
             {% endfor %}
         </ul>
     </div>    
 
 {% endblock %}
+
