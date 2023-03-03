@@ -8,6 +8,12 @@ from blog.views.articles import articles_app
 from blog.views.blog import blog_app
 from blog.models.database import db
 from blog.views.auth import login_manager, auth_app
+import os
+from flask_migrate import Migrate
+
+
+cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
+
 
 
 
@@ -24,6 +30,8 @@ login_manager.init_app(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////tmp/blog.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
+app.config.from_object(f"blog.configs.{cfg_name}")
+migrate = Migrate(app, db, compare_type=True)
 
 @app.route('/')
 def index():
