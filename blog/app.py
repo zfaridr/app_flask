@@ -10,9 +10,11 @@ from blog.models.database import db
 from blog.views.auth import login_manager, auth_app
 import os
 from flask_migrate import Migrate
+from blog.security import flask_bcrypt
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 
-cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
+cfg_name = os.environ.get("CONFIG_NAME") or "TestingConfig"
 
 
 
@@ -32,6 +34,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 app.config.from_object(f"blog.configs.{cfg_name}")
 migrate = Migrate(app, db, compare_type=True)
+
+flask_bcrypt.init_app(app)
 
 @app.route('/')
 def index():
@@ -94,28 +98,25 @@ def handle_zero_division_error(error):
     app.logger.exception("Here's traceback for zero division error")
     return "Never divide by zero!", 400
 
-@app.cli.command("init-db")
-def init_db():
-    """
-    Run in your terminal:
-    flask init-db
-    """
-    db.create_all()
-    print("done!")
+# @app.cli.command("init-db")
+# def init_db():
+#     """
+#     Run in your terminal:
+#     flask init-db
+#     """
+#     db.create_all()
+#     print("done!")
 
-@app.cli.command("create-users")
-def create_users():
+@app.cli.command("create-admin")
+def create_admin():
     """
     Run in your terminal:
-    flask create-users
-    > done! created users: <User #1 'admin'> <User #2 'james'>
+    ➜ flask create-admin
+    > created admin: <User #1 'admin'>
     """
-    from blog.models import User
-    admin = User(id=31, username="farid", is_staff=True)
-    fedor = User(id=32, username="fedor", is_staff=False)
-    
+    from blog.models import user
+    admin = user(username="admin", is_staff=True)
+    admin.password = os.environ.get("ADMIN_PASSWORD") or "adminpass"
     db.session.add(admin)
-    db.session.add(fedor)
     db.session.commit()
-    
-    print("done! created users:", admin, fedor)
+    print("created admin:", admin)
