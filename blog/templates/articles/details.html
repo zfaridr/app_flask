@@ -3,10 +3,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    User #{{ article_id }}
+    Article #{{ article.id }}: {{ article.title }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ article_name }}</h1>
-    <a href="{{ url_for('articles_app.list') }}">Back to article list</a>
+    <h1>{{ article.title }}</h1>
+    <div>
+        <p>{{ article.body }}</p>
+        <div>Published {{ article.dt_created }}</div>
+        <div>by {{ article.author.user.username }}</div>
+    </div>
 {% endblock %}
