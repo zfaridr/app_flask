@@ -106,8 +106,8 @@ def login():
         if not user.validate_password(form.password.data):
             return render_template("auth/login.html", form=form, error="invalid username or password")
         
-        # login_user(user)
-        # return redirect(url_for("index"))
+        login_user(user)
+        return redirect(url_for("index"))
     
     return render_template("auth/login.html", form=form)
 

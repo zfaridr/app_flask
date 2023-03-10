@@ -45,7 +45,7 @@
                     <a class="nav-link" href="{{ url_for('auth_app.secret_view') }}">secret_data</a>
                 </div>
                 <div class="navbar-nav ms-auto">
-                    {% for (endpoint, label) in [('auth_app.login', 'Login'), ('auth_app.register', 'Register')] %}
+                    {% for (endpoint, label) in [('auth_app.register', 'Register')] %}
                         <a href="{{ url_for(endpoint) }}" class="nav-link {% if request.endpoint == endpoint -%}active{%- endif %}">
                             {{ label }}
                         </a>

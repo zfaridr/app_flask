@@ -16,15 +16,11 @@ from blog.views.authors import authors_app
 
 cfg_name = os.environ.get("CONFIG_NAME") or "TestingConfig"
 
-
-
-
-
 app = Flask(__name__)
 
 app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
-app.register_blueprint(blog_app, url_prefix="/index")
+app.register_blueprint(blog_app, url_prefix="/")
 app.register_blueprint(authors_app, url_prefix="/authors")
 
 app.config["SECRET_KEY"] = "5207"
