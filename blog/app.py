@@ -13,6 +13,10 @@ from flask_migrate import Migrate
 from blog.security import flask_bcrypt
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from blog.views.authors import authors_app
+from blog.admin import admin
+
+admin.init_app(blog_app)
+
 
 cfg_name = os.environ.get("CONFIG_NAME") or "TestingConfig"
 
