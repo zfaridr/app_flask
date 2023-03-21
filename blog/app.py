@@ -14,9 +14,7 @@ from blog.security import flask_bcrypt
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from blog.views.authors import authors_app
 from blog.admin import admin
-
-admin.init_app(blog_app)
-
+from blog.api import init_api
 
 cfg_name = os.environ.get("CONFIG_NAME") or "TestingConfig"
 
@@ -26,6 +24,10 @@ app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
 app.register_blueprint(blog_app, url_prefix="/")
 app.register_blueprint(authors_app, url_prefix="/authors")
+
+api = init_api(app)
+
+admin.init_app(app)
 
 app.config["SECRET_KEY"] = "5207"
 app.register_blueprint(auth_app, url_prefix="/auth")
