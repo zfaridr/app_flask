@@ -5,6 +5,36 @@ from combojsonapi.spec import ApiSpecPlugin
 from blog.api.user import UserList, UserDetail
 from blog.api.author import AuthorList, AuthorDetail
 from blog.api.article import ArticleList, ArticleDetail
+from combojsonapi.event import EventPlugin
+from combojsonapi.permission import PermissionPlugin
+
+def init_api(app):
+    event_plugin = EventPlugin()
+    api_spec_plugin = create_api_spec_plugin(app)
+    permission_plugin = PermissionPlugin(strict=False)
+    api = Api(
+        app,
+        plugins=[
+            event_plugin,
+            api_spec_plugin,
+            permission_plugin,
+            ],
+    )
+
+
+def init_api(app):
+    event_plugin = EventPlugin()
+    api_spec_plugin = create_api_spec_plugin(app)
+    api = Api(
+        app,
+        plugins=[
+            event_plugin,
+            api_spec_plugin,
+        ],
+    )
+
+
+
 
 def create_api_spec_plugin(app):
     api_spec_plugin = ApiSpecPlugin(
