@@ -16,6 +16,10 @@ class DevConfig(BaseConfig):
 class TestingConfig(BaseConfig):
     TESTING = True
 
+class ProductionConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+
 FLASK_ADMIN_SWATCH = 'cosmo'
 
 OPENAPI_URL_PREFIX = '/api/swagger'
